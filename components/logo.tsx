@@ -1,14 +1,15 @@
+import Image from "next/image"
+
 export function Logo() {
   return (
-    <div className="size-6">
-      <svg className="text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-        <path
-          clipRule="evenodd"
-          d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"
-          fill="currentColor"
-          fillRule="evenodd"
-        ></path>
-      </svg>
+    <div className="w-18 h-10">
+      <Image
+        src="/logo.png"
+        alt="Ai4Planning logo"
+        width={60}
+        height={42}
+        className="object-contain"
+      />
     </div>
   )
 }
