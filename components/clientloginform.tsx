@@ -87,7 +87,7 @@ export function ClientLogin() {
             disabled={step === "VERIFY_OTP"}
             onChange={(e) => setFullName(e.target.value)}
             placeholder="Enter your full name"
-            className="w-full h-14 px-4 rounded-lg border"
+            className="w-full h-14 px-4 rounded-lg border text-black"
           />
         </div>
 
@@ -102,7 +102,7 @@ export function ClientLogin() {
             disabled={step === "VERIFY_OTP"}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="+44 7911 123456"
-            className="w-full h-14 px-4 rounded-lg border"
+            className="w-full h-14 px-4 rounded-lg border text-black"
           />
         </div>
 
@@ -117,7 +117,7 @@ export function ClientLogin() {
             disabled={step === "VERIFY_OTP"}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full h-14 px-4 rounded-lg border"
+            className="w-full h-14 px-4 rounded-lg border text-black"
           />
         </div>
 
@@ -132,7 +132,7 @@ export function ClientLogin() {
                 type="button"
                 onClick={handleResendOtp}
                 disabled={resending}
-                className="text-[10px] text-primary hover:underline disabled:opacity-50"
+                className="text-[10px] text-primary hover:underline disabled:opacity-50 text-black"
               >
                 {resending ? "Resending..." : "Resend OTP"}
               </button>
