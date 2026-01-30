@@ -1,16 +1,16 @@
 "use client"
-
+ 
 import { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
-
+ 
 import ServiceExpandPanel from "@/components/service-expand-panel"
 import { LoginHeader } from "@/components/login-header"
 import Footer from "@/components/landingpagefooter"
 import QuickAccessHub from "@/components/QuickAccessHub"
 import PlanningExpertSection from "@/components/PlanningExpertSection"
-
+ 
 /* ================= TYPES ================= */
-
+ 
 interface Service {
   id: string
   title: string
@@ -21,15 +21,15 @@ interface Service {
   cta: string
   label: string
 }
-
-
+ 
+ 
 /* ================= HERO ANIMATION DATA ================= */
-
+ 
 const paragraphText =
   "Your partner in planning, whether you’re an individual, homeowner, small business, or a planning consultant. We streamline the path from concept to completion."
-
+ 
 const words = paragraphText.split(" ")
-
+ 
 const headingVariants = {
   hidden: { scale: 0.2, opacity: 0 },
   visible: {
@@ -42,7 +42,7 @@ const headingVariants = {
     },
   },
 }
-
+ 
 const paragraphContainer = {
   hidden: {},
   visible: {
@@ -52,7 +52,7 @@ const paragraphContainer = {
     },
   },
 }
-
+ 
 const wordVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -61,7 +61,7 @@ const wordVariants = {
     transition: { duration: 0.4, ease: "easeOut" },
   },
 }
-
+ 
 const services: Service[] = [
   {
     id: "Service-01",
@@ -166,12 +166,12 @@ const services: Service[] = [
     label: "All client types",
   },
 ]
-
-
+ 
+ 
 export default function Home() {
   const [expandedServiceId, setExpandedServiceId] = useState<string | null>(null)
   const expandedContainerRef = useRef<HTMLDivElement>(null)
-
+ 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -181,18 +181,18 @@ export default function Home() {
         setExpandedServiceId(null)
       }
     }
-
+ 
     if (expandedServiceId) {
       document.addEventListener("mousedown", handleClickOutside)
       return () =>
         document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [expandedServiceId])
-
+ 
   return (
     <main className="w-full ">
       <LoginHeader />
-
+ 
       {/* ================= HERO SECTION ================= */}
       <section className="relative w-full h-screen overflow-hidden">
   {/* ===== Background Video ===== */}
@@ -208,11 +208,11 @@ export default function Home() {
     </video>
     <div className="absolute inset-0 bg-black/40" />
   </div>
-
+ 
   {/* ===== Content ===== */}
   <div className="relative z-10 h-full flex items-center justify-center px-6 text-center -mt-12">
     <div className="max-w-4xl">
-
+ 
       {/* ===== Animated Heading ===== */}
       <motion.h1
         initial={{ scale: 0.25, opacity: 0 }}
@@ -226,7 +226,7 @@ export default function Home() {
       >
         AI4Planning
       </motion.h1>
-
+ 
       {/* ===== Word-by-word paragraph ===== */}
       <motion.p
         initial="hidden"
@@ -261,7 +261,7 @@ export default function Home() {
             </motion.span>
           ))}
       </motion.p>
-
+ 
       {/* ===== Animated CTA Buttons ===== */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -285,7 +285,7 @@ export default function Home() {
         >
           <span className="relative z-10">Explore Our Services</span>
         </motion.button>
-
+ 
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -294,13 +294,13 @@ export default function Home() {
           Let's Talk
         </motion.button>
       </motion.div>
-
+ 
     </div>
   </div>
 </section>
-
-
-
+ 
+ 
+ 
       {/* ================= SERVICES SECTION ================= */}
       <section
   id="services"
@@ -317,7 +317,7 @@ export default function Home() {
       </p>
     </div>
   )}
-
+ 
   {/* ===== Content ===== */}
   <div className="relative max-w-[1740px] mx-auto px-10 mb-20">
     {expandedServiceId ? (
@@ -361,25 +361,21 @@ export default function Home() {
           >
             {/* ===== TOP CONTENT ===== */}
             <div>
-              {service.icon && (
-                <span className="material-symbols-outlined text-blue-400 text-4xl mb-4 block">
-                  {service.icon}
-                </span>
-              )}
-
+             
+ 
               <p className="text-xs font-bold text-blue-400 mb-2">
                 {service.label}
               </p>
-
+ 
               <h3 className="text-lg font-bold mb-3 leading-snug">
                 {service.subtitle}
               </h3>
-
+ 
               <p className="text-sm text-white/60 leading-relaxed italic">
                 “{service.description.substring(0, 80)}…”
               </p>
             </div>
-
+ 
             {/* ===== CTA (BOTTOM LEFT) ===== */}
             <span className="mt-auto pt-6 text-blue-400 font-semibold inline-flex items-center gap-1 relative self-start">
               Get Started
@@ -399,11 +395,11 @@ export default function Home() {
       </div>
     )}
   </div>
-
-  
+ 
+ 
 </section>
-
-
+ 
+ 
 <QuickAccessHub />
       <PlanningExpertSection />
       <Footer />
