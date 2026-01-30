@@ -473,18 +473,29 @@ export default function ServiceExpandPanel({
 
         {/* ================= COLLAPSED LABEL ================= */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          initial={false}
-          animate={{ opacity: isExpanded || mobile ? 0 : 1 }}
-          transition={{ duration: 0.3 }}
-        >
-          <span
-            className="vertical-text font-bold text-white/50 uppercase tracking-[0.4em] text-xs"
-            style={{ transform: "rotate(180deg)" }}
-          >
-            {service.label}
-          </span>
-        </motion.div>
+  className="absolute inset-0 flex items-center justify-center pointer-events-none"
+  initial={false}
+  animate={{
+    opacity: isExpanded || mobile ? 0 : 1,
+    y: isExpanded || mobile ? 0 : [0, -6, 0], // subtle float
+  }}
+  transition={{
+    opacity: { duration: 0.3 },
+    y: {
+      duration: 10.2,
+      ease: "easeInOut",
+      repeat: Infinity,
+    },
+  }}
+>
+  <span
+    className="vertical-text font-bold text-white/50 uppercase tracking-[0.4em] text-xs"
+    style={{ transform: "rotate(180deg)" }}
+  >
+    {service.shortTitle}
+  </span>
+</motion.div>
+
 
         {/* ================= EXPANDED CONTENT ================= */}
         <motion.div
@@ -519,15 +530,16 @@ export default function ServiceExpandPanel({
 
           {/* ================= RIGHT CONTENT ================= */}
           <div className="flex-1 md:w-2/5 p-6 md:p-10 flex flex-col bg-white/5 overflow-y-auto">
-            <span className="text-blue-400 font-bold tracking-widest text-xs uppercase mb-3">
+            {/* <span className="text-blue-400 font-bold tracking-widest text-xs uppercase mb-3">
               Core Technology
-            </span>
+            </span> */}
 
             <h2 className="text-3xl font-bold mb-4">{service.title}</h2>
 
-            <p className="text-white/70 mb-6 leading-relaxed">
-              {service.description}
+            <p className="text-white/70 mb-6 leading-relaxed italic">
+              “{service.description}”
             </p>
+
 
             {/* ================= FEATURES ================= */}
             <div className="flex flex-col gap-3 mb-6">

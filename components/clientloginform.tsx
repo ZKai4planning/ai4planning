@@ -2,10 +2,12 @@
 
 import type React from "react"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 export function ClientLogin() {
   const [step, setStep] = useState<"REQUEST_OTP" | "VERIFY_OTP">("REQUEST_OTP")
 
+  const [fullName, setFullName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
 
@@ -18,28 +20,44 @@ export function ClientLogin() {
     e.preventDefault()
 
     if (!email && !phone) {
-      alert("Please enter Email or Phone number")
+      toast.error("Please enter email or phone number")
       return
     }
 
     if (step === "REQUEST_OTP") {
       console.log("Sending OTP to:", identifier)
-      // 🔗 API: send OTP
-      setStep("VERIFY_OTP")
+
+      toast.success(`OTP sent to ${identifier}`)
+
+      // Small delay = better UX
+      setTimeout(() => {
+        setStep("VERIFY_OTP")
+      }, 300)
+
       return
     }
 
     if (step === "VERIFY_OTP") {
       const otpCode = otp.join("")
+
+      if (otpCode.length !== 6) {
+        toast.error("Please enter the 6-digit OTP")
+        return
+      }
+
       console.log("Verifying OTP:", otpCode)
+      toast.success("OTP verified successfully")
+
       // 🔗 API: verify OTP
     }
   }
 
   const handleResendOtp = () => {
     setResending(true)
+
     console.log("Resending OTP to:", identifier)
-    // 🔗 API: resend OTP
+    toast.success(`OTP sent to ${identifier}`)
+
     setTimeout(() => setResending(false), 3000)
   }
 
@@ -52,56 +70,45 @@ export function ClientLogin() {
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400">
           {step === "REQUEST_OTP"
-            ? "Enter your email or phone number to receive OTP."
+            ? "Enter your email to receive OTP."
             : `OTP sent to ${identifier}`}
         </p>
       </div>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Google Sign In */}
-        <button
-          type="button"
-          className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 py-3 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-3 text-slate-700 dark:text-slate-200 shadow-sm hover:shadow"
-        >
-          {/* Google Logo */}
-          <svg
-            className="w-5 h-5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-              fill="#4285F4"
-            />
-            <path
-              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-              fill="#34A853"
-            />
-            <path
-              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-              fill="#FBBC05"
-            />
-            <path
-              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-              fill="#EA4335"
-            />
-          </svg>
+        {/* Full Name */}
+        <div>
+          <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">
+            Full Name
+          </label>
+          <input
+            type="text"
+            value={fullName}
+            disabled={step === "VERIFY_OTP"}
+            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Enter your full name"
+            className="w-full h-14 px-4 rounded-lg border"
+          />
+        </div>
 
-          <span>Continue with Google</span>
-        </button>
-
-        {/* Divider */}
-        <div className="flex items-center gap-4">
-          <div className="h-px bg-slate-200 dark:bg-slate-800 flex-1" />
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            OR USE OTP LOGIN
-          </span>
-          <div className="h-px bg-slate-200 dark:bg-slate-800 flex-1" />
+        {/* Phone */}
+        <div>
+          <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">
+            Phone
+          </label>
+          <input
+            type="tel"
+            value={phone}
+            disabled={step === "VERIFY_OTP"}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="+44 7911 123456"
+            className="w-full h-14 px-4 rounded-lg border"
+          />
         </div>
 
         {/* Email */}
-        <div className="group">
-          <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">
+        <div>
+          <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">
             Email
           </label>
           <input
@@ -110,28 +117,13 @@ export function ClientLogin() {
             disabled={step === "VERIFY_OTP"}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full h-14 px-4 rounded-lg text-black bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700"
+            className="w-full h-14 px-4 rounded-lg border"
           />
         </div>
 
-        {/* Phone */}
-        <div className="group">
-          <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">
-            Phone
-          </label>
-          <input
-            type="tel"
-            value={phone}
-            disabled={step === "VERIFY_OTP"}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+91 9876543210"
-            className="w-full h-14 px-4 rounded-lg text-black bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700"
-          />
-        </div>
-
-        {/* OTP Section */}
+        {/* OTP INPUTS */}
         {step === "VERIFY_OTP" && (
-          <div className="group">
+          <div>
             <div className="flex justify-between items-end mb-3">
               <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                 6-Digit OTP
@@ -146,7 +138,7 @@ export function ClientLogin() {
               </button>
             </div>
 
-            <div className="flex items-center justify-center gap-1">
+            <div className="flex items-center justify-center">
               {otp.map((digit, index) => (
                 <div key={index} className="flex items-center">
                   <input
@@ -163,8 +155,10 @@ export function ClientLogin() {
                       newOtp[index] = value
                       setOtp(newOtp)
 
-                      if (index < otp.length - 1) {
-                        document.getElementById(`otp-${index + 1}`)?.focus()
+                      if (index < 5) {
+                        document
+                          .getElementById(`otp-${index + 1}`)
+                          ?.focus()
                       }
                     }}
                     onKeyDown={(e) => {
@@ -174,32 +168,35 @@ export function ClientLogin() {
                         setOtp(newOtp)
 
                         if (index > 0) {
-                          document.getElementById(`otp-${index - 1}`)?.focus()
+                          document
+                            .getElementById(`otp-${index - 1}`)
+                            ?.focus()
                         }
                       }
                     }}
-                    className="w-10 h-10 text-center text-lg font-semibold rounded-lg border"
+                    className="w-12 h-12 text-center text-lg font-semibold rounded-lg border"
                   />
 
-                  {/* Hyphen after each box except last */}
+                  {/* Hyphen */}
                   {index < otp.length - 1 && (
-                    <span className="mx-1 text-slate-400 font-bold select-none">
+                    <span className="mx-2 text-slate-400 font-bold select-none">
                       -
                     </span>
                   )}
                 </div>
               ))}
             </div>
-
           </div>
         )}
 
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-primary text-white font-bold py-3 rounded"
+          className="w-full bg-blue-500 text-white font-bold py-3 rounded hover:bg-blue-600"
         >
-          {step === "REQUEST_OTP" ? "Send OTP" : "Sign In"}
+          {step === "REQUEST_OTP"
+            ? `Send OTP via  Email${email ? "" : ""}`
+            : "Sign In"}
         </button>
       </form>
     </div>

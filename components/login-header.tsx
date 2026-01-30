@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Logo } from "./logo"
+import {Logo} from "@/components/landing-log"
 import { ClientLogin } from "@/components//clientloginform" 
 import { motion } from "framer-motion"
 
@@ -27,7 +27,7 @@ export function LoginHeader() {
             className="flex items-center gap-3"
           >
             <Logo />
-            <h2 className="text-slate-900 text-white dark:text-white text-lg font-bold tracking-tight">
+            <h2 className=" text-white dark:text-white text-2xl font-bold tracking-tight">
               Ai4Planning
             </h2>
           </button>
@@ -40,12 +40,12 @@ export function LoginHeader() {
           <button
             onClick={() => setShowLogin(true)}
             className="
-              text-[10px] font-bold text-white
+              text-[15px] font-bold text-white
               uppercase tracking-widest
-              hover:opacity-80 transition
+              hover:opacity-80 transition 
             "
           >
-            Login
+            Sign In
           </button>
         </div>
       </header>

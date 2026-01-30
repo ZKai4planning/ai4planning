@@ -1,4 +1,4 @@
-import { Logo } from "./logo";
+import {Logo} from "@/components/landing-log"
 
 export default function Footer() {
   return (
@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex items-center gap-3 text-primary">
           <a href="/" className="flex items-center gap-3">
             <Logo />
-            <h2 className="text-slate-900 dark:text-white text-lg font-bold tracking-tight">
+            <h2 className="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">
               Ai4Planning
             </h2>
           </a>

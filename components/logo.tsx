@@ -1,15 +1,32 @@
 import Image from "next/image"
-
-export function Logo() {
+import { cn } from "@/lib/utils"
+ 
+export default function Logo({
+  collapsed = false,
+}: {
+  collapsed?: boolean
+}) {
   return (
-    <div className="w-18 h-10">
+    <div
+      className={cn(
+        "flex items-center gap-2 transition-all duration-300 overflow-hidden",
+        collapsed ? "justify-center" : "justify-start"
+      )}
+    >
       <Image
         src="/logo.png"
-        alt="Ai4Planning logo"
-        width={60}
-        height={42}
-        className="object-contain"
+        alt="Ai4Planning Logo"
+        width={28}
+        height={28}
+        priority
+        className=""
       />
+ 
+      {!collapsed && (
+        <span className="font-bold ml-1 text-lg whitespace-nowrap">
+          AI4PLANNING
+        </span>
+      )}
     </div>
   )
 }
