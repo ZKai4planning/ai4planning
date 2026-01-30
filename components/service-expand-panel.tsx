@@ -81,15 +81,15 @@ export default function ServiceExpandPanel({
         {/* ================= COLLAPSED LABEL ================= */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          initial={false}
+          initial={{ opacity: 0 }}
           animate={{
             opacity: isExpanded || mobile ? 0 : 1,
-            y: isExpanded || mobile ? 0 : [0, -6, 0],
+            y: isExpanded || mobile ? 0 : [-8, 8, -8],
           }}
           transition={{
-            opacity: { duration: 0.3 },
+            opacity: { duration: 0.15 },
             y: {
-              duration: 10,
+              duration: 2.2, // 🔥 FAST
               ease: "easeInOut",
               repeat: Infinity,
             },
@@ -102,6 +102,8 @@ export default function ServiceExpandPanel({
             {service.shortTitle}
           </span>
         </motion.div>
+ 
+ 
  
         {/* ================= EXPANDED CONTENT ================= */}
         <motion.div
