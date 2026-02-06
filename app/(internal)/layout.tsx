@@ -2,7 +2,7 @@
  
 import { useState } from "react"
 import Sidebar from "../../components/sidebar"
-import {DashboardHeader} from "../../components/dashboard-header"
+import DashboardHeader from "../../components/dashboard-header"
 import GetStarted from "../../components/onGetStarted"
 import HelpWidget from "../../components/helpwidget"
 import { DashboardFooter } from "../../components/dashboard-footer"
@@ -19,11 +19,11 @@ export default function DashboardLayout({
   return (
     <div className="h-screen flex bg-gray-100 overflow-hidden">
       {/* Sidebar */}
-      <Sidebar
+      {/* <Sidebar
         collapsed={collapsed}
         onToggle={() => setCollapsed((p) => !p)}
         onGetStarted={() => setShowGetStarted(true)}
-      />
+      /> */}
  
       {/* Content wrapper */}
       <div className="flex flex-col flex-1 overflow-hidden">
@@ -31,19 +31,19 @@ export default function DashboardLayout({
  
  
         <DashboardHeader
-  collapsed={collapsed}
-  onToggle={() => setCollapsed(p => !p)}
-  userName="Ajay"
-  breadcrumbs={[
-    { label: "Dashboard", href: "/dashboard" },
-    { label: "Customers" },
-  ]}
-/>
+          // collapsed={collapsed}
+          // onToggle={() => setCollapsed(p => !p)}
+          // userName="Vardhan"
+          // breadcrumbs={[
+          //   { label: "Dashboard", href: "/dashboard" },
+          //   { label: "Customers" },
+          // ]}
+        />
+
  
- 
- 
+
         {/* Page Content */}
-        <main className="flex-1 p-8 overflow-y-auto transition-all duration-300">
+        <main className="flex-1 overflow-y-auto transition-all duration-300">
           {children}
         </main>
  
