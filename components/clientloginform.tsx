@@ -3,8 +3,11 @@
 import type React from "react"
 import { useState } from "react"
 import toast from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 export function ClientLogin() {
+  const router = useRouter()
+
   const [step, setStep] = useState<"REQUEST_OTP" | "VERIFY_OTP">("REQUEST_OTP")
 
   const [fullName, setFullName] = useState("")
@@ -16,6 +19,8 @@ export function ClientLogin() {
 
   const identifier = email || phone
 
+  /* ================= SUBMIT HANDLER ================= */
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -24,12 +29,13 @@ export function ClientLogin() {
       return
     }
 
+    /* ===== STEP 1: REQUEST OTP ===== */
     if (step === "REQUEST_OTP") {
       console.log("Sending OTP to:", identifier)
 
       toast.success(`OTP sent to ${identifier}`)
 
-      // Small delay = better UX
+      // UX delay
       setTimeout(() => {
         setStep("VERIFY_OTP")
       }, 300)
@@ -37,6 +43,7 @@ export function ClientLogin() {
       return
     }
 
+    /* ===== STEP 2: VERIFY OTP ===== */
     if (step === "VERIFY_OTP") {
       const otpCode = otp.join("")
 
@@ -46,37 +53,43 @@ export function ClientLogin() {
       }
 
       console.log("Verifying OTP:", otpCode)
+
+      // ✅ SUCCESS
       toast.success("OTP verified successfully")
 
-      // 🔗 API: verify OTP
+      // 🔐 Redirect after verification
+      router.push("/pay")
     }
   }
 
-  const handleResendOtp = () => {
-    setResending(true)
+  /* ================= RESEND OTP ================= */
 
+  const handleResendOtp = () => {
+    if (!identifier) return
+
+    setResending(true)
     console.log("Resending OTP to:", identifier)
-    toast.success(`OTP sent to ${identifier}`)
+    toast.success(`OTP resent to ${identifier}`)
 
     setTimeout(() => setResending(false), 3000)
   }
 
   return (
     <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-center">
-      {/* Header */}
+      {/* HEADER */}
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-slate-900">
           Sign In
         </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+        <p className="text-sm text-slate-500">
           {step === "REQUEST_OTP"
-            ? "Enter your email to receive OTP."
+            ? "Enter your email or phone number to receive OTP."
             : `OTP sent to ${identifier}`}
         </p>
       </div>
 
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Full Name */}
+        {/* FULL NAME */}
         <div>
           <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">
             Full Name
@@ -91,7 +104,7 @@ export function ClientLogin() {
           />
         </div>
 
-        {/* Phone */}
+        {/* PHONE */}
         <div>
           <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">
             Phone
@@ -106,7 +119,7 @@ export function ClientLogin() {
           />
         </div>
 
-        {/* Email */}
+        {/* EMAIL */}
         <div>
           <label className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-1 block">
             Email
@@ -121,7 +134,7 @@ export function ClientLogin() {
           />
         </div>
 
-        {/* OTP INPUTS */}
+        {/* OTP INPUT */}
         {step === "VERIFY_OTP" && (
           <div>
             <div className="flex justify-between items-end mb-3">
@@ -132,13 +145,13 @@ export function ClientLogin() {
                 type="button"
                 onClick={handleResendOtp}
                 disabled={resending}
-                className="text-[10px] text-primary hover:underline disabled:opacity-50 text-black"
+                className="text-[10px] text-blue-600 hover:underline disabled:opacity-50"
               >
                 {resending ? "Resending..." : "Resend OTP"}
               </button>
             </div>
 
-            <div className="flex items-center justify-center">
+            <div className="flex justify-center">
               {otp.map((digit, index) => (
                 <div key={index} className="flex items-center">
                   <input
@@ -174,12 +187,11 @@ export function ClientLogin() {
                         }
                       }
                     }}
-                    className="w-12 h-12 text-center text-lg font-semibold rounded-lg border"
+                    className="w-12 h-12 text-center text-lg font-semibold rounded-lg border text-black"
                   />
 
-                  {/* Hyphen */}
                   {index < otp.length - 1 && (
-                    <span className="mx-2 text-slate-400 font-bold select-none">
+                    <span className="mx-2 text-slate-400 font-bold">
                       -
                     </span>
                   )}
@@ -189,13 +201,13 @@ export function ClientLogin() {
           </div>
         )}
 
-        {/* Submit */}
+        {/* SUBMIT BUTTON */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-bold py-3 rounded hover:bg-blue-600"
+          className="w-full bg-blue-500 text-white font-bold py-3 rounded hover:bg-blue-600 transition"
         >
           {step === "REQUEST_OTP"
-            ? `Send OTP via  Email${email ? "" : ""}`
+            ? "Send OTP via Email"
             : "Sign In"}
         </button>
       </form>

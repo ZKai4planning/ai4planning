@@ -6,13 +6,13 @@ export default function Footer() {
       <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-[#616f89] dark:text-[#a0aec0]">
         <div className="flex items-center gap-3 text-primary">
           <a href="/" className="flex items-center gap-3">
-            <Logo />
+            {/* <Logo /> */}
             <h2 className="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">
               Ai4Planning
             </h2>
           </a>
         </div>
-        <div className="flex gap-8">
+        <div className="flex gap-8 text-lg font-bold">
           <a className="hover:text-[#135bec]" href="#">
             Documentation
           </a>
@@ -23,7 +23,7 @@ export default function Footer() {
             Terms of Service
           </a>
         </div>
-        <div className="mt-4 md:mt-0">© 2026 Ai4Planning</div>
+        <div className="mt-4 md:mt-0 text-lg font-bold">© 2026 Ai4Planning</div>
       </div>
     </footer>
   )

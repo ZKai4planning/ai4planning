@@ -586,12 +586,12 @@ export default function EligibilityCheckPage() {
 
 
       {/* TABLE */}
-      {/* <div className="mt-10 mb-6">
+      <div className="mt-10 mb-6">
         <Table onView={() => {
           setShowDetailsForm(true)
           window.scrollTo({ top: 300, behavior: "smooth" })
         }} />
-      </div> */}
+      </div>
 
       {/* ================= SHOW FORM ONLY AFTER VIEW ================= */}
       {showDetailsForm && (

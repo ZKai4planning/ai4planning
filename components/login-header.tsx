@@ -16,7 +16,7 @@ export function LoginHeader() {
           sticky top-0 z-50
           flex items-center justify-between
           border-b border-primary/10
-          px-10 py-4
+          px-10
           bg-[#050b18] dark:bg-slate-900/80
           backdrop-blur-md
         "

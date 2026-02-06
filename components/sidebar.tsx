@@ -34,8 +34,8 @@ export default function Sidebar({
   const [openGroup, setOpenGroup] = useState<string | null>(null)
   const pathname = usePathname()
  
-  const userName = "Ajay"
-  const email = "ajay@gmail.com"
+  const userName = "Vardhan"
+  const email = "vardhan@gmail.com"
  
   return (
     <aside

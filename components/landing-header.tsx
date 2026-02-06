@@ -1,13 +1,13 @@
 "use client"
- 
+
 import { useState } from "react"
-import { ClientLogin } from "@/components//clientloginform"
+import { ClientLogin } from "@/components//clientloginform" 
 import { motion } from "framer-motion"
 import { Logo } from "./landing-log"
- 
+
 export function LoginHeader() {
   const [showLogin, setShowLogin] = useState(false)
- 
+
   return (
     <>
       {/* ================= HEADER ================= */}
@@ -32,24 +32,24 @@ export function LoginHeader() {
             </h2>
           </button>
         </div>
- 
+
         <div className="flex items-center gap-8">
           <div className="h-6 w-px bg-slate-200 dark:bg-slate-700" />
- 
+
           {/* LOGIN BUTTON */}
           <button
             onClick={() => setShowLogin(true)}
             className="
               text-[14px] font-bold text-white
               uppercase tracking-widest
-              hover:opacity-80 transition
+              hover:opacity-80 transition 
             "
           >
             Sign In
           </button>
         </div>
       </header>
- 
+
       {/* ================= LOGIN MODAL ================= */}
       {showLogin && (
         <div
@@ -70,7 +70,7 @@ export function LoginHeader() {
             >
               <span className="material-symbols-outlined">close</span>
             </button>
- 
+
             {/* CLIENT LOGIN */}
             <ClientLogin />
           </motion.div>
