@@ -507,6 +507,7 @@
 
 import React, { useState } from "react"
 import Table from "@/components/table"
+import Roadmap from "@/components/roadmap"
 import { useRouter } from "next/navigation"
 import {
   Info,
@@ -524,6 +525,7 @@ type Step = 1 | 2 | 3
 export default function EligibilityCheckPage() {
   const router = useRouter()
   const [step, setStep] = useState<Step>(1)
+  const [roadmap, setroadmap] =useState(false)
   const [showVerification, setShowVerification] = useState(false)
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [showDetailsForm, setShowDetailsForm] = useState(false)
@@ -588,10 +590,20 @@ export default function EligibilityCheckPage() {
       {/* TABLE */}
       <div className="mt-10 mb-6">
         <Table onView={() => {
+   
           setShowDetailsForm(true)
           window.scrollTo({ top: 300, behavior: "smooth" })
-        }} />
+        }}
+        setroadmap={setroadmap} 
+        showdetailsform={setShowDetailsForm}
+        />
       </div>
+
+      {
+        roadmap && !showDetailsForm && (
+              <Roadmap/>
+        )
+      }
 
       {/* ================= SHOW FORM ONLY AFTER VIEW ================= */}
       {showDetailsForm && (
