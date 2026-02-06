@@ -859,7 +859,7 @@ function VerificationCalendar() {
   const [currentDate, setCurrentDate] = useState(today)
   const [selectedDate, setSelectedDate] = useState<number | null>(today.getDate())
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null)
-
+const [showPopup, setShowPopup] = useState(false)
   const year = currentDate.getFullYear()
   const month = currentDate.getMonth()
 
@@ -919,18 +919,52 @@ function VerificationCalendar() {
             </button>
           ))}
         </div>
+<button
+        disabled={!selectedDate || !selectedSlot}
+        onClick={() => setShowPopup(true)}
+        className="w-full rounded-xl bg-blue-600 text-white py-2.5 font-semibold
+        disabled:opacity-40 disabled:cursor-not-allowed"
+      >
+        Confirm Consultation Booking
+      </button>
+
+       {showPopup && (
+        <ConsultationPopup
+  onClose={() => {
+    setShowPopup(false)
+    window.location.reload()
+  }}
+/>
+      )}
+      </div>
+    </div>
+  )
+}
+
+function ConsultationPopup({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl animate-scaleIn">
+        <h2 className="text-2xl font-bold text-slate-900">
+          🎉 Consultation Booked!
+        </h2>
+
+        <p className="mt-2 text-slate-600">
+          Your consultation has been successfully scheduled.
+          Our team will contact you shortly.
+        </p>
 
         <button
-          onClick={() => router.push("/dashboard-consultant")}
-          disabled={!selectedDate || !selectedSlot}
-          className="w-full rounded-xl bg-blue-600 text-white py-2.5 font-semibold disabled:opacity-40"
+          onClick={onClose}
+          className="mt-6 w-full rounded-xl bg-blue-600 py-2.5 text-white font-semibold hover:bg-blue-500 transition"
         >
-          Confirm Consultation Booking
+          Close
         </button>
       </div>
     </div>
   )
 }
+
 function AnalysisModal() {
   const logs = [
     { icon: FileSearch, text: "Collecting submitted property details" },
@@ -1010,3 +1044,4 @@ function AnalysisModal() {
     </div>
   )
 }
+

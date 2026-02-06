@@ -16,23 +16,33 @@ export default function PaymentUI() {
         
         {/* LEFT CARD */}
         <div className="relative rounded-2xl overflow-hidden shadow-xl">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
-          <div className="relative p-10 text-white space-y-4">
-            <h2 className="text-xl font-semibold">
-              <h2 className="text-xl font-semibold">
-              Residential: Homeowners & Personal Life Projects
-            </h2>
-            </h2>
-            <h2 className="text-xl font-semibold">
-              I want to make a small change…
-            </h2>
-            <p className="text-white/70 leading-relaxed text-2xl">
-              As a homeowner with an approved plan, I want to make a small change
-              (for example moving a window or adjusting a roof pitch) so that the
-              design better suits my needs without reapplying from scratch.
-            </p>
-          </div>
-        </div>
+  <div className="absolute inset-0 bg-black/80 backdrop-blur-md" />
+
+  <div className="relative p-10 text-white space-y-6">
+    <h2 className="text-xl font-semibold">
+      Residential: Homeowners & Personal Life Projects
+    </h2>
+
+    <h3 className="text-xl font-semibold">
+      I want to make a small change
+    </h3>
+
+    
+
+    <p className="text-white/70 leading-relaxed text-2xl">
+      As a homeowner with an approved plan, I want to make a small change
+      (for example moving a window or adjusting a roof pitch) so that the
+      design better suits my needs without reapplying from scratch.
+    </p>
+
+    <img
+      src="Service-01.png"
+      alt="Service1"
+      className="w-full max-w-xl rounded-xl shadow-lg"
+    />
+  </div>
+</div>
+
 
         {/* RIGHT CARD */}
         <div className="bg-white rounded-2xl shadow-xl p-6 space-y-6">
